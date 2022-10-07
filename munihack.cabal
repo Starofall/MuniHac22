@@ -25,8 +25,80 @@ library
   hs-source-dirs:
       src
   default-extensions:
-      -- GHC2021 BangPatterns BinaryLiterals ConstrainedClassMethods ConstraintKinds DeriveDataTypeable DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DoAndIfThenElse EmptyCase EmptyDataDecls EmptyDataDeriving ExistentialQuantification ExplicitForAll FlexibleContexts FlexibleInstances ForeignFunctionInterface GADTSyntax GeneralisedNewtypeDeriving HexFloatLiterals ImplicitPrelude ImportQualifiedPost InstanceSigs KindSignatures MonomorphismRestriction MultiParamTypeClasses NamedFieldPuns NamedWildCards NumericUnderscores PatternGuards PolyKinds PostfixOperators RankNTypes RelaxedPolyRec ScopedTypeVariables StandaloneDeriving StandaloneKindSignatures StarIsType TraditionalRecordSyntax TupleSections TypeApplications TypeOperators TypeSynonymInstances
-ApplicativeDo BlockArguments DataKinds DefaultSignatures DeriveAnyClass DerivingStrategies DerivingVia DuplicateRecordFields FunctionalDependencies GADTs GeneralizedNewtypeDeriving LambdaCase LexicalNegation MagicHash MultiWayIf NegativeLiterals NoMonomorphismRestriction NoStarIsType OverloadedStrings PartialTypeSignatures PatternSynonyms QuantifiedConstraints RecordWildCards RecursiveDo TypeFamilies TypeFamilyDependencies UnboxedTuples UndecidableInstances ViewPatterns
+      BangPatterns
+      BinaryLiterals
+      ConstrainedClassMethods
+      ConstraintKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      FlexibleContexts
+      FlexibleInstances
+      ForeignFunctionInterface
+      GADTSyntax
+      GeneralisedNewtypeDeriving
+      HexFloatLiterals
+      ImplicitPrelude
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      MonomorphismRestriction
+      MultiParamTypeClasses
+      NamedFieldPuns
+      NamedWildCards
+      NumericUnderscores
+      PatternGuards
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeSynonymInstances
+      ApplicativeDo
+      BlockArguments
+      DataKinds
+      DefaultSignatures
+      DeriveAnyClass
+      DerivingStrategies
+      DerivingVia
+      DuplicateRecordFields
+      FunctionalDependencies
+      GADTs
+      GeneralizedNewtypeDeriving
+      LambdaCase
+      LexicalNegation
+      MagicHash
+      MultiWayIf
+      NegativeLiterals
+      NoMonomorphismRestriction
+      NoStarIsType
+      OverloadedStrings
+      PartialTypeSignatures
+      PatternSynonyms
+      QuantifiedConstraints
+      RecordWildCards
+      RecursiveDo
+      TypeFamilies
+      TypeFamilyDependencies
+      UnboxedTuples
+      UndecidableInstances
+      ViewPatterns
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
@@ -49,6 +121,81 @@ executable munihack-exe
       Paths_munihack
   hs-source-dirs:
       app
+  default-extensions:
+      BangPatterns
+      BinaryLiterals
+      ConstrainedClassMethods
+      ConstraintKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      FlexibleContexts
+      FlexibleInstances
+      ForeignFunctionInterface
+      GADTSyntax
+      GeneralisedNewtypeDeriving
+      HexFloatLiterals
+      ImplicitPrelude
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      MonomorphismRestriction
+      MultiParamTypeClasses
+      NamedFieldPuns
+      NamedWildCards
+      NumericUnderscores
+      PatternGuards
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeSynonymInstances
+      ApplicativeDo
+      BlockArguments
+      DataKinds
+      DefaultSignatures
+      DeriveAnyClass
+      DerivingStrategies
+      DerivingVia
+      DuplicateRecordFields
+      FunctionalDependencies
+      GADTs
+      GeneralizedNewtypeDeriving
+      LambdaCase
+      LexicalNegation
+      MagicHash
+      MultiWayIf
+      NegativeLiterals
+      NoMonomorphismRestriction
+      NoStarIsType
+      OverloadedStrings
+      PartialTypeSignatures
+      PatternSynonyms
+      QuantifiedConstraints
+      RecordWildCards
+      RecursiveDo
+      TypeFamilies
+      TypeFamilyDependencies
+      UnboxedTuples
+      UndecidableInstances
+      ViewPatterns
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
