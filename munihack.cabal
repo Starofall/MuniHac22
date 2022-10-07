@@ -1,0 +1,67 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           munihack
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/helloworld#readme>
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2022 Author name here
+license:        BSD3
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+library
+  exposed-modules:
+      LovecraftLetter.Core
+      LovecraftLetter.Operational
+  other-modules:
+      Paths_munihack
+  hs-source-dirs:
+      src
+  default-extensions:
+      -- GHC2021 BangPatterns BinaryLiterals ConstrainedClassMethods ConstraintKinds DeriveDataTypeable DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DoAndIfThenElse EmptyCase EmptyDataDecls EmptyDataDeriving ExistentialQuantification ExplicitForAll FlexibleContexts FlexibleInstances ForeignFunctionInterface GADTSyntax GeneralisedNewtypeDeriving HexFloatLiterals ImplicitPrelude ImportQualifiedPost InstanceSigs KindSignatures MonomorphismRestriction MultiParamTypeClasses NamedFieldPuns NamedWildCards NumericUnderscores PatternGuards PolyKinds PostfixOperators RankNTypes RelaxedPolyRec ScopedTypeVariables StandaloneDeriving StandaloneKindSignatures StarIsType TraditionalRecordSyntax TupleSections TypeApplications TypeOperators TypeSynonymInstances
+ApplicativeDo BlockArguments DataKinds DefaultSignatures DeriveAnyClass DerivingStrategies DerivingVia DuplicateRecordFields FunctionalDependencies GADTs GeneralizedNewtypeDeriving LambdaCase LexicalNegation MagicHash MultiWayIf NegativeLiterals NoMonomorphismRestriction NoStarIsType OverloadedStrings PartialTypeSignatures PatternSynonyms QuantifiedConstraints RecordWildCards RecursiveDo TypeFamilies TypeFamilyDependencies UnboxedTuples UndecidableInstances ViewPatterns
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , directory
+    , filepath
+    , megaparsec
+    , mtl
+    , optparse-applicative
+    , parallel
+    , parser-combinators
+    , scientific
+    , text
+    , transformers
+  default-language: Haskell2010
+
+executable munihack-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_munihack
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , directory
+    , filepath
+    , megaparsec
+    , mtl
+    , munihack
+    , optparse-applicative
+    , parallel
+    , parser-combinators
+    , scientific
+    , text
+    , transformers
+  default-language: Haskell2010

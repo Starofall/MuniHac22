@@ -30,7 +30,7 @@ resolver:
 #   - auto-update
 #   - wai
 packages:
-- .
+  - .
 # Dependency packages to be pulled from upstream that are not in the resolver.
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
@@ -40,7 +40,7 @@ packages:
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
-# extra-deps: []
+
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
@@ -65,3 +65,81 @@ packages:
 #
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor
+
+
+default-extensions:
+  - GHC2021
+  - BangPatterns
+  - BinaryLiterals
+  - ConstrainedClassMethods
+  - ConstraintKinds
+  - DeriveDataTypeable
+  - DeriveFoldable
+  - DeriveFunctor
+  - DeriveGeneric
+  - DeriveLift
+  - DeriveTraversable
+  - DoAndIfThenElse
+  - EmptyCase
+  - EmptyDataDecls
+  - EmptyDataDeriving
+  - ExistentialQuantification
+  - ExplicitForAll
+  - FlexibleContexts
+  - FlexibleInstances
+  - ForeignFunctionInterface
+  - GADTSyntax
+  - GeneralisedNewtypeDeriving
+  - HexFloatLiterals
+  - ImplicitPrelude
+  - ImportQualifiedPost
+  - InstanceSigs
+  - KindSignatures
+  - MonomorphismRestriction
+  - MultiParamTypeClasses
+  - NamedFieldPuns
+  - NamedWildCards
+  - NumericUnderscores
+  - PatternGuards
+  - PolyKinds
+  - PostfixOperators
+  - RankNTypes
+  - RelaxedPolyRec
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - StandaloneKindSignatures
+  - StarIsType
+  - TraditionalRecordSyntax
+  - TupleSections
+  - TypeApplications
+  - TypeOperators
+  - TypeSynonymInstances
+  - ApplicativeDo
+  - BlockArguments
+  - DataKinds
+  - DefaultSignatures
+  - DeriveAnyClass
+  - DerivingStrategies
+  - DerivingVia
+  - DuplicateRecordFields
+  - FunctionalDependencies
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - LambdaCase
+  - LexicalNegation
+  - MagicHash
+  - MultiWayIf
+  - NegativeLiterals
+  - NoMonomorphismRestriction
+  - NoStarIsType
+  - OverloadedStrings
+  - PartialTypeSignatures
+  - PatternSynonyms
+  - QuantifiedConstraints
+  - RecordWildCards
+  - RecursiveDo
+  - TypeFamilies
+  - TypeFamilyDependencies
+  - UnboxedTuples
+  - UndecidableInstances
+  - ViewPatterns
