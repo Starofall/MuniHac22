@@ -60,7 +60,7 @@ instance Ord Card where
   compare = compare `on` cardName
 
 instance Show Card where
-  show = show . cardName
+  show x = (show $ cardName x) ++ "(" ++ (show $  cardValue x) ++ "/" ++ (show $ cardSanity x) ++ ")"
 
 
 data Action a where
