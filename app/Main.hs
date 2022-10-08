@@ -1,4 +1,7 @@
 module Main(main) where
 
+import LovecraftLetter.Core
+  
 main :: IO ()
-main = pure ()
+main = mapM_ print deck
+  
