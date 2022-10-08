@@ -20,6 +20,7 @@ library
   exposed-modules:
       LovecraftLetter.Core
       LovecraftLetter.Operational
+      LovecraftLetter.ValidPlayableMoves
   other-modules:
       Paths_munihack
   hs-source-dirs:

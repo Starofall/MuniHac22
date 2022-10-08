@@ -1,13 +1,13 @@
 module LovecraftLetter.Core where
 
-import Data.Text(Text)
-import Numeric.Natural(Natural)
-import LovecraftLetter.Operational
 import Control.Monad (when)
-import Data.Function (on)
-import Control.Monad.State.Strict (StateT, MonadState)
 import Control.Monad.Except (MonadError)
 import Control.Monad.State (get)
+import Control.Monad.State.Strict (MonadState, StateT)
+import Data.Function (on)
+import Data.Text (Text)
+import LovecraftLetter.Operational
+import Numeric.Natural (Natural)
 
 type PlayerId = Natural
 
@@ -16,45 +16,41 @@ data Sanity
   | Insane
   deriving (Eq, Ord, Show)
 
-data Player =
-  Player
-  { playerId :: PlayerId
-  , playerWins :: [Sanity]
+data Player = Player
+  { playerId :: PlayerId,
+    playerWins :: [Sanity]
   }
   deriving (Eq, Ord, Show)
 
-data GlobalState =
-  GlobalState
-  { globalPlayers :: [Player]
-  , globalDeck :: [Card]
-  , globalNextRoundFirstPlayer :: PlayerId
+data GlobalState = GlobalState
+  { globalPlayers :: [Player],
+    globalDeck :: [Card],
+    globalNextRoundFirstPlayer :: PlayerId
   }
   deriving (Eq, Ord, Show)
 
-data RoundState =
-  RoundState
-  { roundDeck :: [Card]
-  , roundCurrentPlayer :: PlayerId
-  , roundPlayerStates :: [PlayerState]
+
+data RoundState = RoundState
+  { roundDeck :: [Card],
+    roundCurrentPlayer :: PlayerId,
+    roundPlayerStates :: [PlayerState]
   }
   deriving (Eq, Ord, Show)
 
-data PlayerState =
-  PlayerState
-  { playerHand :: [Card]
-  , playerBoard :: [Card]
-  , playerSanity :: Sanity
-  , playerRoundProtected :: Bool
-  , playerGameProtected :: Bool
+data PlayerState = PlayerState
+  { playerHand :: [Card],
+    playerBoard :: [Card],
+    playerSanity :: Sanity,
+    playerRoundProtected :: Bool,
+    playerGameProtected :: Bool
   }
   deriving (Eq, Ord, Show)
 
-data Card =
-  Card
-  { cardName :: Text
-  , cardValue :: Natural
-  , cardSanity :: Sanity
-  , cardEffect :: CardEffect
+data Card = Card
+  { cardName :: Text,
+    cardValue :: Natural,
+    cardSanity :: Sanity,
+    cardEffect :: CardEffect
   }
 
 instance Eq Card where
@@ -65,6 +61,7 @@ instance Ord Card where
 
 instance Show Card where
   show = show . cardName
+
 
 data Action a where
   WinGame :: PlayerId -> Action () -- chutulu with 2 cracy cards
@@ -85,7 +82,6 @@ data Knowledge
 
 type CardEffect = PlayerId -> PlayerId -> Natural -> Program Action ()
 
-
 eff0 :: CardEffect
 eff0 player _target _guess = do
   perform $ Die player
@@ -93,7 +89,6 @@ eff0 player _target _guess = do
 effC0 :: CardEffect
 effC0 player _target _guess = do
   perform $ Die player
-
 
 eff1 :: CardEffect
 eff1 _player target guess = do
@@ -118,8 +113,9 @@ effC2 player target _guess = do
   card <- perform $ Inspect target
   perform $ Inform player $ PlayerHasCard target card
   perform $ Draw player
-  -- perform $ DoRound player ???
-  -- @todo we miss the play feature
+
+-- perform $ DoRound player ???
+-- @todo we miss the play feature
 
 eff3 :: CardEffect
 eff3 player target _guess = do
@@ -133,14 +129,14 @@ eff3 player target _guess = do
 effC3 :: CardEffect
 effC3 _player target _guess = do
   perform $ Die target
-  -- @ missing board access to check if he is cracy
+
+-- @ missing board access to check if he is cracy
 
 eff4 :: CardEffect
 eff4 player _target _guess = perform $ ProtectRound player
 
 effC4 :: CardEffect
 effC4 player _target _guess = perform $ ProtectGame player
-
 
 eff5 :: CardEffect
 eff5 _player target _guess = do
@@ -151,8 +147,8 @@ effC5 :: CardEffect
 effC5 _player target _guess = do
   card <- perform $ TakeCard target
   perform $ GiveMiGo target
---  perform $ DoRound _player
 
+--  perform $ DoRound _player
 
 eff6 :: CardEffect
 eff6 player target _guess = do
@@ -165,11 +161,11 @@ effC6 _player _target _guess = do
 
 eff7 :: CardEffect
 eff7 _player _target _guess = do
-  pure()
+  pure ()
 
 effC7 :: CardEffect
 effC7 _player _target _guess = do
-  pure() -- @todo
+  pure () -- @todo
   -- needs playerstate access ->
 
 eff8 :: CardEffect
@@ -181,8 +177,7 @@ effC8 player _target _guess = do
   perform $ Die player -- @todo
   -- needs playerstate access
 
-
-newtype Game a = Game { runGame :: StateT RoundState (Either Text) a }
+newtype Game a = Game {runGame :: StateT RoundState (Either Text) a}
   deriving newtype (Functor, Applicative, Monad, MonadState RoundState, MonadError Text)
 
 interpretAction :: Program Action a -> Game a
@@ -190,37 +185,36 @@ interpretAction = interpret \case
   Inspect p -> do
     roundState <- get
     pure $ head $ playerHand (roundPlayerStates roundState !! fromIntegral p)
-
   _ -> undefined
 
-  -- (Die p) -> _wa
-  -- (Draw p) -> _wb
-  -- (Guess p p') -> _wc
-  -- (ProtectRound p) -> _we
-  -- (ProtectGame p) -> _wf
-  -- (Play p) -> _wg
-  -- (Swap p p') -> _wh
-  -- (Inform p knowl) -> _wi
+-- (Die p) -> _wa
+-- (Draw p) -> _wb
+-- (Guess p p') -> _wc
+-- (ProtectRound p) -> _we
+-- (ProtectGame p) -> _wf
+-- (Play p) -> _wg
+-- (Swap p p') -> _wh
+-- (Inform p knowl) -> _wi
 
 cards :: [Card]
 cards =
-  [ Card "Investigators" 1 Sane eff1
-  , Card "Cats of Ulthaar" 2 Sane eff2
-  , Card "Great Race of Yith" 3 Sane eff3
-  , Card "Elder Sign" 4 Sane eff4
-  , Card "Prof. Henry Armitage" 5 Sane eff5
-  , Card "Randolph Carter" 6 Sane eff6
-  , Card "The Silver Key" 7 Sane eff7
-  , Card "Necronomicon" 8 Sane eff8
-  , Card "Mi-Go BrainCase" 0 Insane effC0
-  , Card "Deep Ones" 1 Insane effC1
-  , Card "Golden Mead" 2 Insane effC2
-  , Card "Hound of Tindalos" 3 Insane effC3
-  , Card "Liber Ivonis" 4 Insane effC4
-  , Card "Mi-Go" 5 Insane effC5
-  , Card "Nyarlathotep" 6 Insane effC6
-  , Card "The Shinig Trapezohedron" 7 Insane effC7
-  , Card "Cthulhu" 8 Insane effC8
+  [ Card "Investigators" 1 Sane eff1,
+    Card "Cats of Ulthaar" 2 Sane eff2,
+    Card "Great Race of Yith" 3 Sane eff3,
+    Card "Elder Sign" 4 Sane eff4,
+    Card "Prof. Henry Armitage" 5 Sane eff5,
+    Card "Randolph Carter" 6 Sane eff6,
+    Card "The Silver Key" 7 Sane eff7,
+    Card "Necronomicon" 8 Sane eff8,
+    Card "Mi-Go BrainCase" 0 Insane effC0,
+    Card "Deep Ones" 1 Insane effC1,
+    Card "Golden Mead" 2 Insane effC2,
+    Card "Hound of Tindalos" 3 Insane effC3,
+    Card "Liber Ivonis" 4 Insane effC4,
+    Card "Mi-Go" 5 Insane effC5,
+    Card "Nyarlathotep" 6 Insane effC6,
+    Card "The Shinig Trapezohedron" 7 Insane effC7,
+    Card "Cthulhu" 8 Insane effC8
   ]
 
 cardAmount :: Card -> Int
