@@ -19,6 +19,7 @@ extra-source-files:
 library
   exposed-modules:
       LovecraftLetter.Core
+      LovecraftLetter.LovecraftDist
       LovecraftLetter.Operational
       LovecraftLetter.ValidPlayableMoves
   other-modules:
@@ -111,6 +112,7 @@ library
     , optparse-applicative
     , parallel
     , parser-combinators
+    , pretty-show
     , scientific
     , text
     , transformers
@@ -209,6 +211,7 @@ executable munihack-exe
     , optparse-applicative
     , parallel
     , parser-combinators
+    , pretty-show
     , scientific
     , text
     , transformers

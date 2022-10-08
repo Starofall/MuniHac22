@@ -26,6 +26,7 @@ dependencies:
   - filepath
   - megaparsec
   - mtl
+  - pretty-show
   - optparse-applicative
   - parser-combinators
   - scientific
