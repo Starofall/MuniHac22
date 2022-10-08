@@ -8,6 +8,12 @@ import Data.Function (on)
 import Data.Text (Text)
 import LovecraftLetter.Operational
 import Numeric.Natural (Natural)
+import System.Random
+import Data.Array.IO
+import Control.Monad
+import Numeric.Natural
+import GHC.Natural (naturalToInteger)
+
 
 type PlayerId = Natural
 
@@ -28,7 +34,6 @@ data GlobalState = GlobalState
     globalNextRoundFirstPlayer :: PlayerId
   }
   deriving (Eq, Ord, Show)
-
 
 data RoundState = RoundState
   { roundDeck :: [Card],
@@ -60,8 +65,7 @@ instance Ord Card where
   compare = compare `on` cardName
 
 instance Show Card where
-  show x = (show $ cardName x) ++ "(" ++ (show $  cardValue x) ++ "/" ++ (show $ cardSanity x) ++ ")"
-
+  show x = (show $ cardName x) ++ "(" ++ (show $ cardValue x) ++ "/" ++ (show $ cardSanity x) ++ ")"
 
 data Action a where
   WinGame :: PlayerId -> Action () -- chutulu with 2 cracy cards
@@ -234,3 +238,41 @@ cardReplicated card = replicate (cardAmount card) card
 
 deck :: [Card]
 deck = cards >>= cardReplicated
+
+deckWithoutZero :: [Card]
+deckWithoutZero = filter (\x -> cardValue x /= 0) deck
+
+
+initGlobal :: Int -> [Card] -> GlobalState
+initGlobal players cards = GlobalState (map buildPlayer [0..(players-1)]) cards 0
+  where
+    buildPlayer x = Player(fromInteger $ toInteger x) []
+
+initRound:: GlobalState -> RoundState
+initRound (GlobalState players deck playerId) = RoundState cardRest playerId playerStates
+  where
+    playerStates = map (initPlayerState deck) players
+    cardRest = drop (length players) deck
+
+initPlayerState:: [Card]  -> Player ->  PlayerState
+initPlayerState deck x = PlayerState handCards [] Sane False False
+  where
+    handCards = [deck !! fromIntegral (naturalToInteger $ playerId x)]
+
+
+
+-- | Randomly shuffle a list
+--   /O(N)/
+shuffle :: [a] -> IO [a]
+shuffle xs = do
+        ar <- newArray n xs
+        forM [1..n] $ \i -> do
+            j <- randomRIO (i,n)
+            vi <- readArray ar i
+            vj <- readArray ar j
+            writeArray ar j vi
+            return vj
+  where
+    n = length xs
+    newArray :: Int -> [a] -> IO (IOArray Int a)
+    newArray n xs =  newListArray (1,n) xs

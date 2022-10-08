@@ -30,6 +30,8 @@ dependencies:
   - parser-combinators
   - scientific
   - text
+  - array
+  - random
   - transformers
 
 ghc-options:

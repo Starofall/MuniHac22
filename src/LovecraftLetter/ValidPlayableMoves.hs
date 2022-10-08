@@ -53,8 +53,9 @@ listCardPlayableMoves rs c =
     (6, Insane) -> [PlayableMove c True Nothing Nothing] ++ [PlayableMove c False (Just $ fromInteger $ toInteger playerId) Nothing | playerId <- otherPlayerIds]
     (7, Insane) -> [(PlayableMove c False Nothing Nothing),(PlayableMove c False Nothing Nothing)]
     (8, Insane) -> [(PlayableMove c False Nothing Nothing),(PlayableMove c False Nothing Nothing)]
+    _ -> error "Invalid"
   where
     playerStates = roundPlayerStates rs
-    currentPlayerId = fromIntegral $ naturalToInteger $ roundCurrentPlayer rs
+    currentPlayerId = fromIntegral $ roundCurrentPlayer rs
     otherPlayerIds = filter (/= currentPlayerId) [0..((length playerStates)-1)]
 
